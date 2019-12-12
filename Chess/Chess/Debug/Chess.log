@@ -1,0 +1,6 @@
+﻿  Piece.cpp
+  Source.cpp
+  stdafx.cpp
+  Generating Code...
+C:\Users\משתמש\Documents\magshimim\C++\Chess\Chess\Chess\Source.cpp(17,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Chess.vcxproj -> C:\Users\משתמש\Documents\magshimim\C++\Chess\Chess\Debug\Chess.exe
