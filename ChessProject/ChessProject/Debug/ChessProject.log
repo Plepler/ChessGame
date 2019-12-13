@@ -1,6 +1,0 @@
-﻿  Piece.cpp
-  Source.cpp
-  stdafx.cpp
-  Generating Code...
-C:\Users\משתמש\Documents\magshimim\C++\Chess\shupler_chess\ChessProject\ChessProject\Source.cpp(17,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
-  ChessProject.vcxproj -> C:\Users\משתמש\Documents\magshimim\C++\Chess\shupler_chess\ChessProject\Debug\ChessProject.exe
