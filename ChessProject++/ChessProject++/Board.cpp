@@ -11,6 +11,24 @@ Board::Board(char startingPlayer) : _pieces()
 
 }
 
+
+Piece* Board::getPiece(char letter, char number)
+{
+	unsigned int i = 0;
+	bool flag = false;
+	Piece* retPiece = nullptr;
+
+	for (i = 0; i < _pieces.size() && !flag; i++)
+	{
+		if (_pieces.at(i)->getLetter() == letter && _pieces.at(i)->getNumber() == number)
+		{
+			flag = true;
+			retPiece = _pieces.at(i);
+		}
+	}
+	return retPiece;
+}
+
 void Board::createPieces()
 {
 	int i = 0;
@@ -102,10 +120,7 @@ char& Board::operator()(const char letter, const char number)
 	return _board[index];
 }
 
-void Board::updateBoard()
-{
 
-}
 
 /*
 This function prints the board
@@ -122,3 +137,58 @@ void Board::printBoard()
 		cout << endl;
 	}
 }
+
+int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
+{
+	int i = 0;
+	bool black = true;
+	int flag = 0;
+	Piece * srcPiece = this->getPiece(srcLetter, srcNum);
+	Piece* dstPiece = this->getPiece(dstLetter, dstNum);
+	if (_board[CURR_PLAYER] == '0')//Check which player is it
+	{
+		black = false;
+	}
+
+
+	if (dstLetter > 'h' || dstLetter < 'a' || dstNum > '8' || dstNum < '1')
+	{
+		flag = OUT;
+	}
+	else if (srcPiece == nullptr)
+	{
+		flag = MISS;
+	}
+	else if (dstPiece != nullptr && srcPiece->isBlack() == dstPiece->isBlack())
+	{
+		flag = OCCUPIED;
+	}
+	//else if () check if check
+	//{
+	//	flag = CHECK;
+	//}
+	else if (!srcPiece->isValidPieceMove(*this, srcNum, srcLetter, dstNum, dstLetter))//Check if a move is valid
+	{
+		flag = INVALID;
+	}
+	else if(dstLetter == srcLetter && srcNum == dstNum)//dst and src are the same
+	{
+		flag = SAME;
+	}
+	else
+	{
+		flag = VAL;
+		move(srcNum, srcLetter, dstNum, dstLetter);
+	}
+
+	return flag;
+}
+
+void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
+{
+	if (isValidMove(srcNum, srcLetter, dstNum, dstLetter))
+	{
+
+	}
+}
+

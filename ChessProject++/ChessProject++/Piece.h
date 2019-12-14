@@ -18,6 +18,19 @@ enum PIECES
 	B_BISHOP = 'b',
 	B_PAWN = 'p'
 };
+enum MOVE_CODES
+{
+	VAL = 0,
+	CHECK,
+	MISS,
+	OCCUPIED,
+	SUICIDE,
+	OUT,
+	INVALID,
+	SAME,
+	CHECKMATE
+};
+
 
 class Board;
 
@@ -28,13 +41,13 @@ protected:
 	char _letter;
 	char _sign;
 
-	//Methods
-	virtual bool isValidMove(Board board, char letter, char sign) = 0;//Helper function
-
+	
 
 public:
 	Piece(char number, char letter, char sign); //C'Tor
+	char getLetter();
+	char getNumber();
 	bool isBlack();
-	virtual void move(Board board, char newNum, char newLetter) = 0;
+	virtual bool isValidPieceMove(Board board,char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
 	virtual char getSign();
 };

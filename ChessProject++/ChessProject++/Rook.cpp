@@ -1,17 +1,6 @@
 #include "Rook.h"
 
-enum MOVE_CODES
-{
-	VAL	= 0,
-	CHECK,
-	MISS,
-	OCCUPIED,
-	SUICIDE,
-	OUT,
-	INVALID,
-	SAME,
-	CHECKMATE
-};
+
 
 Rook::Rook(char number, char letter, char sign) : Piece(number, letter, sign)
 {
@@ -20,35 +9,55 @@ Rook::Rook(char number, char letter, char sign) : Piece(number, letter, sign)
 
 
 
-void Rook::move(Board board, char newNum, char newLetter)
+
+
+bool Rook::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
-	if (isValidMove(board, newNum, newLetter))
+	char i = 0;
+	bool flag = true;
+	if (srcNum != dstNum && srcLetter != dstLetter)//Make sure he moved in a straight line
 	{
-
+		flag = false;
 	}
-}
+	else if (srcNum != dstNum)//The rook moved
+	{
+		if (dstNum < srcNum)//Make dst num always bigger
+		{
+			//Switch
+			dstNum = srcNum + dstNum;
+			srcNum = dstLetter - srcNum;
+			dstNum = dstNum - srcNum;
+		}
 
-int Rook::isValidMove(Board board, char newNum, char newLetter)
-{
-	int i = 0;
-	int flag = 0;
-	if ()
-	{
-
-	}
-	else if ((newLetter > _letter || newLetter < _letter) && (newNum < _number || newNum > _number))
-	{
-		flag = INVALID;
-	}
-	else if(_number > EIGHT || _number < 0 || newLetter > 'h' || newLetter < 'a')//If in valid range
-	{
-		flag = OUT;
+		for (i = srcNum + 1; i < dstNum && flag; i++)
+		{
+			if (board(srcLetter, dstLetter) != EMPTY)
+			{
+				flag = false;
+			}
+		}
 	}
 	else
 	{
-		
+		if (dstLetter < srcLetter)//Make dst letter always bigger
+		{
+			//swap
+			dstLetter = srcLetter + dstLetter;
+			srcLetter = dstLetter - srcLetter;
+			dstLetter = dstLetter - srcLetter;
+		}
+
+		for (i = srcLetter + 1; i < dstLetter && flag; i++)
+		{
+			if (board(srcLetter, dstLetter) != EMPTY)
+			{
+				flag = false;
+			}
+		}
 	}
 	return flag;
 }
+
+
 
 

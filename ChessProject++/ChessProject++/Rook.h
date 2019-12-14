@@ -5,12 +5,7 @@
 class Rook : public Piece
 {
 
-private:
-	virtual int isValidMove(Board board, char newNum, char newLetter);//Helper function
-
-
 public:
 	Rook(char number, char letter, char sign);
-	virtual void move(Board board, char newNum, char newLetter);
-
+	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter);
 };

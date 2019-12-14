@@ -11,6 +11,16 @@ Piece::Piece(char number, char letter, char sign)
 	this->_sign = sign;
 }
 
+char Piece::getLetter()
+{
+	return _letter;
+}
+char Piece::getNumber()
+{
+	return _number;
+}
+
+
 
 /*
 This function checks if a piece is black or white
@@ -25,3 +35,4 @@ char Piece::getSign()
 {
 	return _sign;
 }
+
