@@ -12,15 +12,16 @@
 #define NUM_OF_PIECES 32
 #define SEVEN 7
 #define EMPTY '#'
-#define ERROR_0 "Valid move"
-#define ERROR_1 "Valid move, opponent is now in check"
-#define ERROR_2 "Invalid move, Didnt select piece to move"
-#define ERROR_3 "Invalid move, we are not cannibals, you can't eat yourself"
-#define ERROR_4 "You will only hurt yourself, (Dial )"
-#define ERROR_5	""
-#define ERROR_6	""
-#define ERROR_7	""
-#define ERROR_8	""
+
+#define CODE_0 "Valid move"
+#define CODE_1 "Valid move, opponent is now in check"
+#define CODE_2 "Invalid move, Didnt select piece to move"
+#define CODE_3 "Invalid move, we are not cannibals, you can't eat yourself"
+#define CODE_4 "You will only hurt yourself, ()"
+#define CODE_5	""
+#define CODE_6	""
+#define CODE_7	""
+#define CODE_8	""
 
 
 

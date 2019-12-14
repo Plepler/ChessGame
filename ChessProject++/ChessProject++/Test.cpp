@@ -4,8 +4,8 @@ int main()
 {
 	Board b('0');
 	b.printBoard();
-	b.getPiece('a', '1');
-	
+	b.move('1', 'a', '2', 'a');
+	b.printBoard();
 
 
 

@@ -31,93 +31,44 @@ Piece* Board::getPiece(char letter, char number)
 
 void Board::createPieces()
 {
-	int i = 0;
-	char missingPiece = ' ';
 	Piece* newPiece = NULL;
-	for (i = 0; i < NUM_OF_PIECES / TWO; i++)
-	{
-		missingPiece = searchForPieces();
-
-		switch (missingPiece)
-		{
-		case B_QUEEN:
-			//newPiece = 
-			break;
-
-		case B_KIGHT:
-			//newPiece =
-			break;
-
-		case B_KING:
-			//newPiece =
-			break;
-
-		case B_PAWN:
-			//newPiece =
-			break;
-
-		case B_ROOK:
-			newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
-			_pieces.push_back(newPiece);
-			newPiece = new Rook('1', 'h', W_ROOK);//bottom right rook
-			_pieces.push_back(newPiece);
-			newPiece = new Rook('8', 'a', B_ROOK);//top left rook
-			_pieces.push_back(newPiece);
-			newPiece = new Rook('8', 'h', B_ROOK);//top right rook
-			_pieces.push_back(newPiece);
-
-			
-			break;
-
-		case B_BISHOP:
-			break;
-
-		default:
-			break;
-		}
-		
-
-	}
 	
+	//Create Rooks
+	newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
+	_pieces.push_back(newPiece);
+	newPiece = new Rook('1', 'h', W_ROOK);//bottom right rook
+	_pieces.push_back(newPiece);
+	newPiece = new Rook('8', 'a', B_ROOK);//top left rook
+	_pieces.push_back(newPiece);
+	newPiece = new Rook('8', 'h', B_ROOK);//top right rook
+	_pieces.push_back(newPiece);
+	
+	//Create Bishops
+
+
+
+
+	//etc..
+
+
+
+
+
 }
 
-char Board::searchForPieces()
-{
-	char retSign = ' ';
-	bool flag = true;
-	unsigned int i = 0, k = 0;
-	char unique_pieces[SEVEN] = "rnbkqp";
-	for (i = 0; i < SEVEN && flag; i++)
-	{
-		flag = false;
-		for (k = 0; k < _pieces.size() && !flag; k++)
-		{
-			if (unique_pieces[i] == _pieces.at(k)->getSign())
-			{
-				flag = true;
-			}
-		}
-		if (!flag)
-		{
-			retSign = unique_pieces[i];
-		}
-		
-	}
-	return retSign;
-}
+
 
 char& Board::operator()(const char letter, const char number)
 {
 	char retChr = ' ';
-	int index = 0;
+	int index = 1;
 	if (number > '0' && number < '9' && letter > 'a' && letter < 'i')
 	{
 		index = number;
 		index *= int(letter - DIFF);
-		retChr = _board[index];
 	}
 
-	return _board[index];
+	return _board[index - 1];
 }
 
 
@@ -136,6 +87,7 @@ void Board::printBoard()
 		}
 		cout << endl;
 	}
+	cout << endl;
 }
 
 int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
@@ -155,15 +107,15 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	{
 		flag = OUT;
 	}
-	else if (srcPiece == nullptr)
+	else if (srcPiece == nullptr )
 	{
 		flag = MISS;
 	}
-	else if (dstPiece != nullptr && srcPiece->isBlack() == dstPiece->isBlack())
+	else if ((*this)(dstLetter, dstNum)  != EMPTY && srcPiece->isBlack() !=  isupper((*this)(dstLetter, dstNum)))
 	{
 		flag = OCCUPIED;
 	}
-	//else if () check if check
+	//else if () //check if check
 	//{
 	//	flag = CHECK;
 	//}
@@ -178,7 +130,6 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	else
 	{
 		flag = VAL;
-		move(srcNum, srcLetter, dstNum, dstLetter);
 	}
 
 	return flag;
@@ -186,9 +137,52 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 
 void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
-	if (isValidMove(srcNum, srcLetter, dstNum, dstLetter))
+	int errorCode = isValidMove(srcNum, srcLetter, dstNum, dstLetter);
+	if (errorCode == VAL)
 	{
+		(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
+		(*this)(srcLetter, srcNum) = EMPTY;
+	}
+	else
+	{
+		switch (errorCode)
+		{
+		case OUT:
+			cout << CODE_5 << endl;
+			break;
 
+		case VAL:
+			cout << CODE_0 << endl;
+			break;
+
+		case SAME:
+			cout << CODE_7 << endl;
+			break;
+
+		case OCCUPIED:
+			cout << CODE_3 << endl;
+			break;
+
+		case INVALID:
+			cout << CODE_6 << endl;
+			break;
+
+		case CHECKMATE:
+			cout << CODE_8 << endl;
+			break;
+
+		case CHECK:
+			cout << CODE_1 << endl;
+			break;
+
+		case SUICIDE:
+			cout << CODE_4 << endl;
+			break;
+
+		default:
+			cout << "How the F*** did you get here!?" << endl;
+			break;
+		}
 	}
 }
 
