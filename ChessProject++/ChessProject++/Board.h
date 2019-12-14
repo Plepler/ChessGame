@@ -17,7 +17,7 @@
 #define CODE_1 "Valid move, opponent is now in check"
 #define CODE_2 "Invalid move, Didnt select piece to move"
 #define CODE_3 "Invalid move, we are not cannibals, you can't eat yourself"
-#define CODE_4 "You will only hurt yourself, ()"
+#define CODE_4 "You will only hurt yourself, (1-800-273-8255 - for help)"
 #define CODE_5	""
 #define CODE_6	""
 #define CODE_7	""
@@ -46,6 +46,5 @@ protected:
 	char * _board;
 
 	
-	char searchForPieces();
 	void createPieces();
 };
