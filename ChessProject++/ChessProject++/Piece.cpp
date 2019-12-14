@@ -1,5 +1,6 @@
-#include "Piece.h"
 #include "Board.h"
+#include "Piece.h"
+
 
 
 // C'Tor
@@ -18,4 +19,9 @@ Out: true if white, false if black
 bool Piece::isBlack()
 {
 	return (isupper(_sign));
+}
+
+char Piece::getSign()
+{
+	return _sign;
 }

@@ -1,14 +1,16 @@
 #pragma once
 #include "Piece.h"
+#define EIGHT 8
+
 class Rook : public Piece
 {
 
-protected:
-	virtual bool isValidMove();//Helper function
+private:
+	virtual int isValidMove(Board board, char newNum, char newLetter);//Helper function
+
 
 public:
 	Rook(char number, char letter, char sign);
-	virtual void move(char newNum, char newLetter);
-
+	virtual void move(Board board, char newNum, char newLetter);
 
 };

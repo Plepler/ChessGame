@@ -1,4 +1,3 @@
-#pragma once
 
 #pragma once
 #include <iostream>
@@ -20,7 +19,7 @@ enum PIECES
 	B_PAWN = 'p'
 };
 
-
+class Board;
 
 class Piece
 {
@@ -30,12 +29,12 @@ protected:
 	char _sign;
 
 	//Methods
-	virtual bool isValidMove(Board board) = 0;//Helper function
+	virtual bool isValidMove(Board board, char letter, char sign) = 0;//Helper function
 
 
 public:
 	Piece(char number, char letter, char sign); //C'Tor
 	bool isBlack();
-	virtual void move(char newNum, char newLetter) = 0;
-
+	virtual void move(Board board, char newNum, char newLetter) = 0;
+	virtual char getSign();
 };
