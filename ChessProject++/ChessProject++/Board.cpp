@@ -46,7 +46,7 @@ Piece* Board::getPiece(char letter, char number)
 	bool flag = false;
 	Piece* retPiece = nullptr;
 
-	for (i = 0; i < _pieces.size() && !flag; i++)
+	for (i = 0; i < NUM_OF_PIECES && !flag; i++)
 	{
 		if (_pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
 		{

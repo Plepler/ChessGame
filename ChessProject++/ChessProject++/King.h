@@ -14,4 +14,4 @@ public:
 private:
 	bool _isOnCheck;
 
-}
+};
