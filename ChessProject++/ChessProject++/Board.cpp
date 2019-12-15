@@ -1,7 +1,35 @@
 #include "Board.h"
+#include "Rook.h"
+#include "King.h"
+#include "Queen.h"
+#include "Piece.h"
+
+
+using namespace std;
 #define DIFF 48
-Board::Board(char startingPlayer) : _pieces()
+
+enum ALL_PIECES
 {
+	W_KING = 'k',
+	W_QUEEN = 'Q',
+	W_ROOK = 'R',
+	W_KIGHT = 'N',
+	W_BISHOP = 'B',
+	W_PAWN = 'P',
+
+	B_KING = 'k',
+	B_QUEEN = 'q',
+	B_ROOK = 'r',
+	B_KIGHT = 'n',
+	B_BISHOP = 'b',
+	B_PAWN = 'p'
+};
+
+
+
+Board::Board(char startingPlayer) 
+{
+	
 	_board = new char[SIZE];
 	char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
 	boardArray[SIZE - TWO] = startingPlayer;
@@ -20,10 +48,10 @@ Piece* Board::getPiece(char letter, char number)
 
 	for (i = 0; i < _pieces.size() && !flag; i++)
 	{
-		if (_pieces.at(i)->getLetter() == letter && _pieces.at(i)->getNumber() == number)
+		if (_pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
 		{
 			flag = true;
-			retPiece = _pieces.at(i);
+			retPiece = _pieces[i];
 		}
 	}
 	return retPiece;
@@ -31,17 +59,23 @@ Piece* Board::getPiece(char letter, char number)
 
 void Board::createPieces()
 {
-	Piece* newPiece = NULL;
-	
 	//Create Rooks
-	newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
-	_pieces.push_back(newPiece);
+	int i = 0;
+	Piece* newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
+	_pieces[i] = newPiece;
+	i++;
+	
 	newPiece = new Rook('1', 'h', W_ROOK);//bottom right rook
-	_pieces.push_back(newPiece);
+	_pieces[i] = newPiece;
+	i++;
+	
 	newPiece = new Rook('8', 'a', B_ROOK);//top left rook
-	_pieces.push_back(newPiece);
+	_pieces[i] = newPiece;
+	i++;
+	
 	newPiece = new Rook('8', 'h', B_ROOK);//top right rook
-	_pieces.push_back(newPiece);
+	_pieces[i] = newPiece;
+	i++;
 	
 	//Create Bishops
 

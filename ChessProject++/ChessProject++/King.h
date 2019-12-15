@@ -1,15 +1,17 @@
 #pragma once
 #include "Piece.h"
-#define EIGHT 8
+
 class Piece;
 class Board;
 
-
- 
-class Rook : public Piece
+class King : public Piece
 {
-
 public:
-	Rook(char number, char letter, char sign);
+	King(char number, char letter, char sign);
 	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter);
-};
+
+
+private:
+	bool _isOnCheck;
+
+}

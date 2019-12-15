@@ -1,7 +1,8 @@
-#include "Board.h"
 #include "Piece.h"
-
-
+#include "Board.h"
+#include "Rook.h"
+#include "King.h"
+#include "Queen.h"
 
 // C'Tor
 Piece::Piece(char number, char letter, char sign)

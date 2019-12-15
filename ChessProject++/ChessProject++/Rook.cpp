@@ -1,4 +1,8 @@
 #include "Rook.h"
+#include "Piece.h"
+#include "Board.h"
+
+
 
 
 
@@ -7,10 +11,11 @@ Rook::Rook(char number, char letter, char sign) : Piece(number, letter, sign)
 
 }
 
-
-
-
-
+/*
+the function checks if the rook is moving correctly without friendly fire or passing over pieces
+In:
+Out:
+*/
 bool Rook::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	char i = 0;

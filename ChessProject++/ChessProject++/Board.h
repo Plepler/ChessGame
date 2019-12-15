@@ -1,10 +1,8 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <vector>
-#include "Piece.h"
-#include "Rook.h"
-#include <string>
+
+
 
 #define TWO 2
 #define SIZE 66
@@ -23,15 +21,13 @@
 #define CODE_7	""
 #define CODE_8	""
 
-
-
-using namespace std;
-
+class King;
+class Queen;
+class Rook;
 class Piece;
 
 class Board
 {
-
 
 public:
 	Board(char startingPlayer);
@@ -40,11 +36,9 @@ public:
 	char& operator()(const char letter, const char number);
 	int isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter);
 	void move(char srcNum, char srcLetter, char dstNum, char dstLetter);
-
-protected:
-	std::vector<Piece*> _pieces;
-	char * _board;
-
-	
 	void createPieces();
+
+private:
+	Piece* _pieces[NUM_OF_PIECES];
+	char * _board;
 };
