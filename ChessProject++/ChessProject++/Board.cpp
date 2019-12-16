@@ -31,12 +31,11 @@ Board::Board(char startingPlayer)
 {
 	
 	_board = new char[SIZE];
-	char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
+	//char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
+	char boardArray[SIZE] = "rnbkqbnr#pppppp#################################PPPPPPPPRNBKQBNR";
 	boardArray[SIZE - TWO] = startingPlayer;
 	strcpy(_board, boardArray);
 	createPieces();
-
-
 }
 
 
@@ -48,7 +47,7 @@ Piece* Board::getPiece(char letter, char number)
 
 	for (i = 0; i < NUM_OF_PIECES && !flag; i++)
 	{
-		if (_pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
+		if (_pieces[i] != nullptr && _pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
 		{
 			flag = true;
 			retPiece = _pieces[i];
@@ -61,19 +60,19 @@ void Board::createPieces()
 {
 	//Create Rooks
 	int i = 0;
-	Piece* newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
+	Piece* newPiece = new Rook('1', 'a', B_ROOK);//Bottom left rook
 	_pieces[i] = newPiece;
 	i++;
 	
-	newPiece = new Rook('1', 'h', W_ROOK);//bottom right rook
+	newPiece = new Rook('1', 'h', B_ROOK);//bottom right rook
 	_pieces[i] = newPiece;
 	i++;
 	
-	newPiece = new Rook('8', 'a', B_ROOK);//top left rook
+	newPiece = new Rook('8', 'a', W_ROOK);//top left rook
 	_pieces[i] = newPiece;
 	i++;
 	
-	newPiece = new Rook('8', 'h', B_ROOK);//top right rook
+	newPiece = new Rook('8', 'h', W_ROOK);//top right rook
 	_pieces[i] = newPiece;
 	i++;
 	
@@ -94,15 +93,16 @@ void Board::createPieces()
 
 char& Board::operator()(const char letter, const char number)
 {
-	char retChr = ' ';
-	int index = 1;
-	if (number > '0' && number < '9' && letter > 'a' && letter < 'i')
+	int index = 0;
+	if (number > '0' && number < '9' && letter >= 'a' && letter < 'i')
 	{
-		index = number;
-		index *= int(letter - DIFF);
+		index = (int(number - '0') - 1) * EIGHT;
+		//cout << "Index: " << index << endl;
+		index += int(letter - 'a') ;
+		//cout << "Index: " << index << endl;
 	}
-
-	return _board[index - 1];
+	cout <<"Index: " <<index << endl;
+	return _board[index];
 }
 
 
@@ -112,10 +112,12 @@ This function prints the board
 */
 void Board::printBoard()
 {
+
 	int i = 0, k = 0;
-	for (i = 0; i < SIZE - TWO; i+= EIGHT)
+
+	for (i = SIZE - TWO -1; i >= 0 ; i-= EIGHT)
 	{
-		for (k = i; k < i + SEVEN ; k++)
+		for (k = i; k > i - EIGHT ; k--)
 		{
 			cout << _board[k] << " ";
 		}
