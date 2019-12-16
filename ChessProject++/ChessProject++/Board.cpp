@@ -29,7 +29,6 @@ enum ALL_PIECES
 
 Board::Board(char startingPlayer) 
 {
-	
 	_board = new char[SIZE];
 	//char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
 	char boardArray[SIZE] = "rnbkqbnr#pppppp#################################PPPPPPPPRNBKQBNR";
@@ -101,7 +100,7 @@ char& Board::operator()(const char letter, const char number)
 		index += int(letter - 'a') ;
 		//cout << "Index: " << index << endl;
 	}
-	cout <<"Index: " <<index << endl;
+	cout <<letter <<',' << number <<" is index: " << index << endl;
 	return _board[index];
 }
 
@@ -114,10 +113,9 @@ void Board::printBoard()
 {
 
 	int i = 0, k = 0;
-
 	for (i = SIZE - TWO -1; i >= 0 ; i-= EIGHT)
 	{
-		for (k = i; k > i - EIGHT ; k--)
+		for (k = i - SEVEN; k <= i ; k++)
 		{
 			cout << _board[k] << " ";
 		}
