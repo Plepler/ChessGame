@@ -37,3 +37,8 @@ char Piece::getSign()
 	return _sign;
 }
 
+void Piece::setPos(char let, char num)
+{
+	this->_number = num;
+	this->_letter = let;
+}

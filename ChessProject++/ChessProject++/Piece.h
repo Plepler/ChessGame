@@ -34,6 +34,7 @@ public:
 	char getLetter();
 	char getNumber();
 	bool isBlack();
+	void setPos(char let, char num);
 	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
 	char getSign();
 };

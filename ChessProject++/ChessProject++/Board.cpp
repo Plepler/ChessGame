@@ -31,11 +31,12 @@ Board::Board(char startingPlayer)
 {
 	_board = new char[SIZE];
 	//char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
-	char boardArray[SIZE] = "rnbkqbnr#pppppp#################################PPPPPPPPRNBKQBNR";
+	char boardArray[SIZE] = "rnbkqbnr#pppppp#########################################RNBKQBNR";
 	boardArray[SIZE - TWO] = startingPlayer;
 	strcpy(_board, boardArray);
 	createPieces();
 }
+
 
 
 Piece* Board::getPiece(char letter, char number)
@@ -100,7 +101,6 @@ char& Board::operator()(const char letter, const char number)
 		index += int(letter - 'a') ;
 		//cout << "Index: " << index << endl;
 	}
-	cout <<letter <<',' << number <<" is index: " << index << endl;
 	return _board[index];
 }
 
@@ -127,25 +127,23 @@ void Board::printBoard()
 int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	int i = 0;
-	bool black = true;
+	int color =  _board[CURR_PLAYER];
 	int flag = 0;
 	Piece * srcPiece = this->getPiece(srcLetter, srcNum);
 	Piece* dstPiece = this->getPiece(dstLetter, dstNum);
-	if (_board[CURR_PLAYER] == '0')//Check which player is it
-	{
-		black = false;
-	}
 
-
-	if (dstLetter > 'h' || dstLetter < 'a' || dstNum > '8' || dstNum < '1')
+	//Check if all positions are in range
+	if ((dstLetter > 'h' || dstLetter < 'a' || dstNum > '8' || dstNum < '1') || (srcLetter > 'h' || srcLetter < 'a' || srcNum > '8' || srcNum < '1'))
 	{
 		flag = OUT;
 	}
+	//Check if there is a piece in that position
 	else if (srcPiece == nullptr )
 	{
 		flag = MISS;
 	}
-	else if ((*this)(dstLetter, dstNum)  != EMPTY && srcPiece->isBlack() !=  isupper((*this)(dstLetter, dstNum)))
+	//Check if destination is occupied by same color piece
+	else if ((*this)(dstLetter, dstNum)  != EMPTY && color !=  isupper((*this)(dstLetter, dstNum)))
 	{
 		flag = OCCUPIED;
 	}
@@ -174,7 +172,10 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	int errorCode = isValidMove(srcNum, srcLetter, dstNum, dstLetter);
 	if (errorCode == VAL)
 	{
-		if ((*this)(dstLetter, dstNum) == "#")
+		
+		cout << CODE_0 << endl;
+		//Change board
+		if ((*this)(dstLetter, dstNum) == '#')
 		{
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
@@ -182,7 +183,11 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		else		
 		{
 			getRidOf(getPiece(dstLetter, dstNum));
+			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
+			(*this)(srcLetter, srcNum) = EMPTY;
 		}
+		getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
+		//_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 	}
 	else
 	{
@@ -191,6 +196,9 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		case OUT:
 			cout << CODE_5 << endl;
 			break;
+
+		case MISS:
+			cout << CODE_2 << endl;
 
 		case VAL:
 			cout << CODE_0 << endl;
