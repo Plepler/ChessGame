@@ -41,4 +41,7 @@ public:
 private:
 	Piece* _pieces[NUM_OF_PIECES];
 	char * _board;
+	void getRidOf(Piece * p);
+	bool checkIfCheck(Piece * king);
+
 };
