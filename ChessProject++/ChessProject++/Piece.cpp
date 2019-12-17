@@ -29,7 +29,7 @@ Out: true if white, false if black
 */
 bool Piece::isBlack()
 {
-	return (isupper(_sign));
+	return !(isupper(_sign));
 }
 
 char Piece::getSign()

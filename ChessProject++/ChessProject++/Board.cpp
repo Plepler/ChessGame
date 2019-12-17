@@ -10,7 +10,7 @@ using namespace std;
 
 enum ALL_PIECES
 {
-	W_KING = 'k',
+	W_KING = 'K',
 	W_QUEEN = 'Q',
 	W_ROOK = 'R',
 	W_KIGHT = 'N',
@@ -76,8 +76,15 @@ void Board::createPieces()
 	_pieces[i] = newPiece;
 	i++;
 	
-	//Create Bishops
+	//Create Kings
 
+	newPiece = new King('1', 'd', B_KING);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new King('8', 'd', W_KING);
+	_pieces[i] = newPiece;
+	i++;
 
 
 
@@ -127,7 +134,7 @@ void Board::printBoard()
 int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	int i = 0;
-	int color =  _board[CURR_PLAYER];
+	char color =  _board[CURR_PLAYER];
 	int flag = 0;
 	Piece * srcPiece = this->getPiece(srcLetter, srcNum);
 	Piece* dstPiece = this->getPiece(dstLetter, dstNum);
@@ -138,19 +145,19 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		flag = OUT;
 	}
 	//Check if there is a piece in that position
-	else if (srcPiece == nullptr )
+	else if (srcPiece != nullptr && srcPiece->isBlack() != ( color == '1' ? true : false ) )
 	{
 		flag = MISS;
 	}
 	//Check if destination is occupied by same color piece
-	else if ((*this)(dstLetter, dstNum)  != EMPTY && color !=  isupper((*this)(dstLetter, dstNum)))
+	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  isupper((*this)(dstLetter, dstNum)))
 	{
 		flag = OCCUPIED;
 	}
-	//else if () //check if check
-	//{
-	//	flag = CHECK;
-	//}
+	else if (checkIfCheck(findPiece((color == '1' ? B_KING : W_KING)))) //check if check
+	{
+		flag = CHECK;
+	}
 	else if (!srcPiece->isValidPieceMove(*this, srcNum, srcLetter, dstNum, dstLetter))//Check if a move is valid
 	{
 		flag = INVALID;
@@ -169,25 +176,56 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 
 void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
+	Piece* temp = nullptr;
 	int errorCode = isValidMove(srcNum, srcLetter, dstNum, dstLetter);
 	if (errorCode == VAL)
 	{
 		
-		cout << CODE_0 << endl;
+		
 		//Change board
 		if ((*this)(dstLetter, dstNum) == '#')
 		{
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
+			getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
+			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
+			{
+				
+				cout << CODE_4 << endl;
+				//reverse back the move
+				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
+				(*this)(dstLetter, dstNum) = EMPTY;
+				getPiece(dstLetter, dstNum)->setPos(srcLetter, srcNum);//Set the old cordinates
+			}
+			else
+			{
+				cout << CODE_0 << endl;
+			}
 		}
 		else		
 		{
-			getRidOf(getPiece(dstLetter, dstNum));
+			//eat the piece and check if king is in check
+			temp = getPiece(dstLetter, dstNum);//save the eaten character
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
+			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
+			{
+				//reverse back
+				cout << CODE_4 << endl;
+				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
+				(*this)(dstLetter, dstNum) = temp->getSign();
+				getPiece(dstLetter, dstNum)->setPos(srcLetter, srcNum);//Set the old cordinates
+			}
+			else//You cant eat safely <3
+			{
+				getRidOf(temp);
+				cout << CODE_0 << endl;//SUCCESS
+			}
+			
 		}
-		getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
-		//_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
+		
+		
+		_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 	}
 	else
 	{
@@ -258,13 +296,18 @@ bool Board::checkIfCheck(Piece* king)
 	//Check if rook can kill
 	char closePiece1 = ' ';
 	char closePiece2 = ' ';
-	char enemyRook = 'R';
-	char ally = 'r';
+	char enemyRook = ' ';
+	char ally = ' ';
 	char letter = king->getLetter(); 
 	char num = king->getNumber();
 	char i = ' ';
 	bool flag = false;
 	if (king->isBlack())
+	{
+		enemyRook = 'R';
+		ally = 'r';
+	}
+	else
 	{
 		enemyRook = 'r';
 		ally = 'R';
@@ -311,4 +354,27 @@ bool Board::checkIfCheck(Piece* king)
 	}
 
 	return flag;
+}
+
+
+/*
+This function finds a piece using the sign and return it
+In: sign of wanted Piece
+Out: wanted piece
+*/
+Piece* Board::findPiece(char sign)
+{
+	int i = 0;
+	bool flag = false;
+	Piece* temp = nullptr;
+
+	for (i = 0; i < NUM_OF_PIECES && !flag; i++)
+	{
+		if (_pieces[i] != nullptr && _pieces[i]->getSign() == sign)
+		{
+			flag = true;
+			temp = _pieces[i];
+		}
+	}
+	return temp;
 }

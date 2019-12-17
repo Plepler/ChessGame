@@ -37,6 +37,7 @@ public:
 	int isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter);
 	void move(char srcNum, char srcLetter, char dstNum, char dstLetter);
 	void createPieces();
+	Piece* findPiece(char sign);
 
 private:
 	Piece* _pieces[NUM_OF_PIECES];
