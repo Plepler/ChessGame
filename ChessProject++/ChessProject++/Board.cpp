@@ -4,6 +4,7 @@
 #include "Knight.h"
 #include "Pawn.h"
 #include "Queen.h"
+#include "Bishop.h"
 #include "Piece.h"
 
 
@@ -87,14 +88,118 @@ void Board::createPieces()
 	_pieces[i] = newPiece;
 	i++;
 
+	//Create Queen
+	newPiece = new Queen('1', 'e', B_QUEEN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Queen('8', 'e', W_QUEEN);
+	_pieces[i] = newPiece;
+	i++;
 
 
-	//etc..
+	//Create Bishops
+
+	newPiece = new Bishop('1', 'c', B_BISHOP);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Bishop('1', 'f', B_BISHOP);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Bishop('8', 'c', W_BISHOP);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Bishop('8', 'f', W_BISHOP);
+	_pieces[i] = newPiece;
+	i++;
+
+	//Create Knights
+	newPiece = new Knight('1', 'b', B_KIGHT);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Knight('1', 'g', B_KIGHT);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Knight('8', 'b', W_KIGHT);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Knight('8', 'g', W_KIGHT);
+	_pieces[i] = newPiece;
+	i++;
+
+	//Create Pawns
+	//Black
+	newPiece = new Pawn('2', 'a', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'b', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'c', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'd', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'e', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'f', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'g', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('2', 'h', B_PAWN);
+	_pieces[i] = newPiece;
+	i++;
 
 
+	//White
+	newPiece = new Pawn('2', 'a', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
 
+	newPiece = new Pawn('7', 'b', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
 
+	newPiece = new Pawn('7', 'c', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
 
+	newPiece = new Pawn('7', 'd', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('7', 'e', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('7', 'f', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('7', 'g', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
+
+	newPiece = new Pawn('7', 'h', W_PAWN);
+	_pieces[i] = newPiece;
+	i++;
 }
 
 
@@ -121,6 +226,7 @@ void Board::printBoard()
 {
 
 	int i = 0, k = 0;
+	cout << endl;
 	for (i = SIZE - TWO -1; i >= 0 ; i-= EIGHT)
 	{
 		for (k = i - SEVEN; k <= i ; k++)
@@ -154,10 +260,6 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  (isupper((*this)(dstLetter, dstNum) != 0)))
 	{
 		flag = OCCUPIED;
-	}
-	else if (checkIfCheck(findPiece((color == '1' ? B_KING : W_KING)))) //check if check
-	{
-		flag = CHECK;
 	}
 	else if (srcPiece != nullptr && !srcPiece->isValidPieceMove(*this, srcNum, srcLetter, dstNum, dstLetter))//Check if a move is valid
 	{
