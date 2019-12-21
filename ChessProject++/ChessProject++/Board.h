@@ -44,5 +44,9 @@ private:
 	char * _board;
 	void getRidOf(Piece * p);
 	bool checkIfCheck(Piece * king);
+	bool rookCheck(Piece* king);//also queen since she is an hybrid of rook and bishop
+	bool bishopCheck(Piece* king);//also queen since she is an hybrid of rook and bishop
+	bool pawnCheck(Piece* king);
+	bool knightCheck(Piece* king);
 
 };
