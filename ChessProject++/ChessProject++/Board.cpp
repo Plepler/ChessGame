@@ -30,8 +30,7 @@ enum ALL_PIECES
 Board::Board(char startingPlayer) 
 {
 	_board = new char[SIZE];
-	//char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
-	char boardArray[SIZE] = "rnbkqbnr#pppppp#########################################RNBKQBNR";
+	char boardArray[SIZE] = "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR";
 	boardArray[SIZE - TWO] = startingPlayer;
 	strcpy(_board, boardArray);
 	createPieces();
@@ -158,7 +157,7 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	{
 		flag = CHECK;
 	}
-	else if (!srcPiece->isValidPieceMove(*this, srcNum, srcLetter, dstNum, dstLetter))//Check if a move is valid
+	else if (srcPiece != nullptr && !srcPiece->isValidPieceMove(*this, srcNum, srcLetter, dstNum, dstLetter))//Check if a move is valid
 	{
 		flag = INVALID;
 	}
@@ -188,26 +187,32 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
 			getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
+			
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
 				
 				cout << CODE_4 << endl;
 				//reverse back the move
+				
 				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
 				(*this)(dstLetter, dstNum) = EMPTY;
 				getPiece(dstLetter, dstNum)->setPos(srcLetter, srcNum);//Set the old cordinates
 			}
+			
 			else
 			{
 				cout << CODE_0 << endl;
 			}
 		}
+
 		else		
 		{
 			//eat the piece and check if king is in check
 			temp = getPiece(dstLetter, dstNum);//save the eaten character
+
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
+			
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
 				//reverse back
@@ -216,6 +221,7 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 				(*this)(dstLetter, dstNum) = temp->getSign();
 				getPiece(dstLetter, dstNum)->setPos(srcLetter, srcNum);//Set the old cordinates
 			}
+			
 			else//You cant eat safely <3
 			{
 				getRidOf(temp);
@@ -227,43 +233,40 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		
 		_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 	}
+	
 	else
 	{
 		switch (errorCode)
 		{
-		case OUT:
-			cout << CODE_5 << endl;
+		case CHECK:
+			cout << CODE_1 << endl;
 			break;
 
 		case MISS:
-			cout << CODE_2 << endl;
-
-		case VAL:
-			cout << CODE_0 << endl;
-			break;
-
-		case SAME:
-			cout << CODE_7 << endl;
-			break;
-
+			cout << CODE_2 << endl;		
+		
 		case OCCUPIED:
 			cout << CODE_3 << endl;
+			break;		
+		
+		case SUICIDE:
+			cout << CODE_4 << endl;
+			break;
+
+		case OUT:
+			cout << CODE_5 << endl;
 			break;
 
 		case INVALID:
 			cout << CODE_6 << endl;
 			break;
 
+		case SAME:
+			cout << CODE_7 << endl;
+			break;
+
 		case CHECKMATE:
 			cout << CODE_8 << endl;
-			break;
-
-		case CHECK:
-			cout << CODE_1 << endl;
-			break;
-
-		case SUICIDE:
-			cout << CODE_4 << endl;
 			break;
 
 		default:
