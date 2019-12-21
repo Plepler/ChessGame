@@ -1,4 +1,6 @@
 #include "Bishop.h"
+#include "Board.h"
+#include "Piece.h"
 
 Bishop::Bishop(char number, char letter, char sign) : Piece(number, letter, sign) {}
 

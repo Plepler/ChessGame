@@ -311,9 +311,8 @@ bool Board::rookCheck(Piece * king)
 	char closePiece1 = ' ';
 	char closePiece2 = ' ';
 	char enemyRook = ' ';
-	char ally = ' ';
 	char enemyQueen = ' ';
-	char allyQueen = ' ';
+
 	char letter = king->getLetter();
 	char num = king->getNumber();
 	char i = ' ';
@@ -322,16 +321,14 @@ bool Board::rookCheck(Piece * king)
 	if (king->isBlack())
 	{
 		enemyRook = 'R';
-		ally = 'r';
 		enemyQueen = 'Q';
-		allyQueen = 'q';
+
 	}
 	else
 	{
 		enemyRook = 'r';
-		ally = 'R';
 		enemyQueen = 'q';
-		allyQueen = 'Q';
+
 	}
 
 	//This loops checks The horizontal line
@@ -418,7 +415,7 @@ bool Board::bishopCheck(Piece* king)
 
 
 
-
+	return flag;
 }
 
 bool Board::pawnCheck(Piece* king)
@@ -427,17 +424,15 @@ bool Board::pawnCheck(Piece* king)
 	char kingLet = king->getLetter();
 	char kingNum = king->getNumber();
 	char enemyPawn = ' ';
-	char allyPawn = ' ';
 
-	if (_board[CURR_PLAYER] == '1' )
+
+	if (_board[CURR_PLAYER] == '1' )//If black turn
 	{
 		enemyPawn = 'P';
-		allyPawn = 'p';
 	}
-	else
+	else//if white turn
 	{
 		enemyPawn = 'p';
-		allyPawn = 'P';
 	}
 
 
@@ -461,7 +456,69 @@ bool Board::pawnCheck(Piece* king)
 
 bool Board::knightCheck(Piece* king)
 {
+	bool flag = false;
+	char kingLet = king->getLetter();
+	char kingNum = king->getNumber();
+	char enemyKnight = ' ';
+	char allyKnight = ' ';
 
+	if (_board[CURR_PLAYER] == '1')//if black turn
+	{
+		enemyKnight = 'N';
+		allyKnight = 'n';
+	}
+	else//if white turn
+	{
+		enemyKnight = 'n';
+		allyKnight = 'N';
+	}
+
+	if (kingLet + TWO <= 'h') // right
+	{
+		if (kingNum < '8' && (*this)(kingLet + TWO, kingNum + 1) == enemyKnight)
+		{
+			flag = true;
+		}
+		if (kingNum > '1' && (*this)(kingLet + TWO, kingNum - 1) == enemyKnight)
+		{
+			flag = true;
+		}
+	}
+	if (kingLet - 2 >= 'a') // left
+	{
+		if (kingNum < '8' && (*this)(kingLet - TWO, kingNum + 1) == enemyKnight)
+		{
+			flag = true;
+		}
+		if (kingNum > '1' && (*this)(kingLet - TWO, kingNum - 1) == enemyKnight)
+		{
+			flag = true;
+		}
+	}
+	if (kingNum + 2 <= '8') // up
+	{
+		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum + TWO))
+		{
+			flag = true;
+		}
+		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum + TWO))
+		{
+			flag = true;
+		}
+	}
+	if (kingNum - 2 >= '1') // down
+	{
+		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum - TWO))
+		{
+			flag = true;
+		}
+		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum - TWO))
+		{
+			flag = true;
+		}
+	}
+
+	return flag;
 }
 
 

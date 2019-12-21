@@ -1,4 +1,6 @@
 #include "Knight.h"
+#include "Piece.h"
+#include "Board.h"
 #define WIDTH 2
 #define LENGTH 2
 
