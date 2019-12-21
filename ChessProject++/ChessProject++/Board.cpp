@@ -296,24 +296,42 @@ void Board::getRidOf(Piece * p)
 
 bool Board::checkIfCheck(Piece* king)
 {
+	bool flag = false;
+	if (rookCheck(king) || bishopCheck(king) || knightCheck(king) || pawnCheck(king))
+	{
+		flag = true;
+	}
+	return flag;
+}
+
+
+bool Board::rookCheck(Piece * king)
+{
 	//Check if rook can kill
 	char closePiece1 = ' ';
 	char closePiece2 = ' ';
 	char enemyRook = ' ';
 	char ally = ' ';
-	char letter = king->getLetter(); 
+	char enemyQueen = ' ';
+	char allyQueen = ' ';
+	char letter = king->getLetter();
 	char num = king->getNumber();
 	char i = ' ';
 	bool flag = false;
+
 	if (king->isBlack())
 	{
 		enemyRook = 'R';
 		ally = 'r';
+		enemyQueen = 'Q';
+		allyQueen = 'q';
 	}
 	else
 	{
 		enemyRook = 'r';
 		ally = 'R';
+		enemyQueen = 'q';
+		allyQueen = 'Q';
 	}
 
 	//This loops checks The horizontal line
@@ -329,9 +347,9 @@ bool Board::checkIfCheck(Piece* king)
 		{
 			closePiece2 = (*this)(i, num);
 		}
-		
+
 	}
-	if (closePiece2 == enemyRook || closePiece1 == enemyRook)
+	if (closePiece2 == enemyRook || closePiece1 == enemyRook || closePiece1 == enemyQueen || closePiece2 == enemyQueen)
 	{
 		flag = true;
 	}
@@ -351,13 +369,63 @@ bool Board::checkIfCheck(Piece* king)
 		}
 
 	}
-	if (closePiece2 == enemyRook || closePiece1 == enemyRook)
+	if (closePiece2 == enemyRook || closePiece1 == enemyRook || closePiece1 == enemyQueen || closePiece2 == enemyQueen)
 	{
 		flag = true;
 	}
 
 	return flag;
 }
+
+bool Board::bishopCheck(Piece* king)
+{
+	bool flag = false;
+	char i = king->getLetter() + 1, k = king->getNumber() + 1;
+	//Check diagonal upwards right
+	for (i = i, k = k; i <= 'h' || k <= '8' && !flag; i++, k++)
+	{
+		if ((*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_BISHOP : B_BISHOP) || (*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_QUEEN : B_QUEEN))
+		{
+			flag = true;
+		}
+	}
+
+	//Check diagonal down left
+	for (i = i, k = k; i >= 'a' || k >= '1' && !flag; i--, k--)
+	{
+		if ((*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_BISHOP : B_BISHOP) || (*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_QUEEN : B_QUEEN))
+		{
+			flag = true;
+		}
+	}
+
+	//Check diagonal down right
+	for (i = i, k = k; i <= 'h' || k >= '1' && !flag; i--, k--)
+	{
+		if ((*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_BISHOP : B_BISHOP) || (*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_QUEEN : B_QUEEN))
+		{
+			flag = true;
+		}
+	}
+
+
+
+
+
+
+}
+
+bool Board::pawnCheck(Piece* king)
+{
+
+}
+
+bool Board::knightCheck(Piece* king)
+{
+
+}
+
+
 
 
 /*

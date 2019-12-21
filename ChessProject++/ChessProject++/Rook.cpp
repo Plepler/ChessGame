@@ -36,7 +36,7 @@ bool Rook::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNu
 
 		for (i = srcNum + 1; i < dstNum && flag; i++)
 		{
-			if (board(srcLetter, dstLetter) != EMPTY)
+			if (board(srcLetter, i) != EMPTY)
 			{
 				flag = false;
 			}
