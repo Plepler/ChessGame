@@ -16,10 +16,10 @@
 #define CODE_2 "Invalid move, Didnt select valid square to move from"
 #define CODE_3 "Invalid move, we are not cannibals, you can't eat yourself"
 #define CODE_4 "You will only hurt yourself, (1-800-273-8255 for help)"
-#define CODE_5	""
-#define CODE_6	""
-#define CODE_7	""
-#define CODE_8	""
+#define CODE_5	"Out of bounds"
+#define CODE_6	"Illegal move, RTFM"
+#define CODE_7	"Same destination and source tiles"
+#define CODE_8	"Good job, you won!"
 
 class King;
 class Queen;
