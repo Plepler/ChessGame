@@ -24,7 +24,11 @@
 class King;
 class Queen;
 class Rook;
+class Knight;
+class Bishop;
 class Piece;
+
+
 
 class Board
 {

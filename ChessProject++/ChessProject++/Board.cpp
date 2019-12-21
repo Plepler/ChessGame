@@ -1,6 +1,8 @@
 #include "Board.h"
 #include "Rook.h"
 #include "King.h"
+#include "Knight.h"
+#include "Pawn.h"
 #include "Queen.h"
 #include "Piece.h"
 
