@@ -400,7 +400,15 @@ bool Board::bishopCheck(Piece* king)
 	}
 
 	//Check diagonal down right
-	for (i = i, k = k; i <= 'h' || k >= '1' && !flag; i--, k--)
+	for (i = i, k = k; i <= 'h' || k >= '1' && !flag; i++, k--)
+	{
+		if ((*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_BISHOP : B_BISHOP) || (*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_QUEEN : B_QUEEN))
+		{
+			flag = true;
+		}
+	}
+	//Check diagonal upwards left
+	for (i = i, k = k; i >= 'a' || k <= 'h' && !flag; i--, k++)
 	{
 		if ((*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_BISHOP : B_BISHOP) || (*this)(i, k) == (_board[CURR_PLAYER] == '1' ? W_QUEEN : B_QUEEN))
 		{
@@ -411,13 +419,44 @@ bool Board::bishopCheck(Piece* king)
 
 
 
-
-
 }
 
 bool Board::pawnCheck(Piece* king)
 {
+	bool flag = false;
+	char kingLet = king->getLetter();
+	char kingNum = king->getNumber();
+	char enemyPawn = ' ';
+	char allyPawn = ' ';
 
+	if (_board[CURR_PLAYER] == '1' )
+	{
+		enemyPawn = 'P';
+		allyPawn = 'p';
+	}
+	else
+	{
+		enemyPawn = 'p';
+		allyPawn = 'P';
+	}
+
+
+	if (isupper(king->getSign()))//if white king
+	{
+		//If White knight is in danger from pawn
+		if ((kingLet > 'a' && kingNum > '1' && (*this)(kingLet - 1, kingNum - 1)) == enemyPawn || kingLet < 'z' && kingNum > '1' && (*this)(kingLet + 1, kingNum - 1) == enemyPawn)
+		{
+			flag = true;
+		}
+	}
+	else//if black king
+	{
+		if ((kingLet < 'h' && kingNum < '8' && (*this)(kingLet + 1, kingNum + 1)) == enemyPawn || kingLet < 'z' && kingNum > '1' && (*this)(kingLet - 1, kingNum - 1) == enemyPawn)
+		{
+			flag = true;
+		}
+	}
+	return flag;
 }
 
 bool Board::knightCheck(Piece* king)
