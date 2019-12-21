@@ -151,7 +151,7 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		flag = MISS;
 	}
 	//Check if destination is occupied by same color piece
-	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  isupper((*this)(dstLetter, dstNum)))
+	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  (isupper((*this)(dstLetter, dstNum) != 0)))
 	{
 		flag = OCCUPIED;
 	}

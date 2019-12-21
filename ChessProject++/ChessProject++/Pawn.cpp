@@ -1,4 +1,7 @@
 #include "Pawn.h"
+#include "Piece.h"
+#include "Board.h"
+
 Pawn::Pawn(char number, char letter, char sign) : Piece(number, letter, sign) {}
 
 bool Pawn::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)

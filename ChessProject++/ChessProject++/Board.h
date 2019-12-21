@@ -27,6 +27,7 @@ class Rook;
 class Knight;
 class Bishop;
 class Piece;
+class Pawn;
 
 
 

@@ -4,6 +4,9 @@ class Board;
 class Rook;
 class Queen;
 class King;
+class Knight;
+class Bishop;
+class Pawn;
 
 enum MOVE_CODES
 {
