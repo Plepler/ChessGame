@@ -41,7 +41,7 @@ public:
 	char getSign();	
 
 	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
-	//the function checks if the rook is moving correctly without friendly fire or passing over pieces
+	//This function check if the piece moved correctly with skipping over other pieces (except knight)
 	//In: the board, the src index and the dest index of the piece
-	//Out: based on the piece, true or false based on the move, if its valid
+	//Out: true if the move is valid, false otherwise
 };
