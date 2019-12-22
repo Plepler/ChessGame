@@ -7,7 +7,6 @@
 #include "Bishop.h"
 #include "Piece.h"
 
-
 using namespace std;
 #define DIFF 48
 
@@ -29,7 +28,6 @@ enum ALL_PIECES
 };
 
 
-
 Board::Board(char startingPlayer) 
 {
 	_board = new char[SIZE];
@@ -39,25 +37,19 @@ Board::Board(char startingPlayer)
 	createPieces();
 }
 
-
-
-Piece* Board::getPiece(char letter, char number)
+//D'Tor
+Board::~Board()
 {
-	unsigned int i = 0;
-	bool flag = false;
-	Piece* retPiece = nullptr;
-
-	for (i = 0; i < NUM_OF_PIECES && !flag; i++)
+	delete[]_board;
+	while (_pieces[0] != nullptr)
 	{
-		if (_pieces[i] != nullptr && _pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
-		{
-			flag = true;
-			retPiece = _pieces[i];
-		}
+		getRidOf(_pieces[0]);
 	}
-	return retPiece;
 }
 
+/*
+This function adds all the pieces to the array
+*/
 void Board::createPieces()
 {
 	//Create Rooks
@@ -65,19 +57,19 @@ void Board::createPieces()
 	Piece* newPiece = new Rook('1', 'a', B_ROOK);//Bottom left rook
 	_pieces[i] = newPiece;
 	i++;
-	
+
 	newPiece = new Rook('1', 'h', B_ROOK);//bottom right rook
 	_pieces[i] = newPiece;
 	i++;
-	
+
 	newPiece = new Rook('8', 'a', W_ROOK);//top left rook
 	_pieces[i] = newPiece;
 	i++;
-	
+
 	newPiece = new Rook('8', 'h', W_ROOK);//top right rook
 	_pieces[i] = newPiece;
 	i++;
-	
+
 	//Create Kings
 
 	newPiece = new King('1', 'd', B_KING);
@@ -201,6 +193,30 @@ void Board::createPieces()
 	_pieces[i] = newPiece;
 	i++;
 }
+
+/*
+This function returns a piece from the array
+In: the index of the piece
+Out: the piece, nullptr if not found
+*/
+Piece* Board::getPiece(char letter, char number)
+{
+	unsigned int i = 0;
+	bool flag = false;
+	Piece* retPiece = nullptr;
+
+	for (i = 0; i < NUM_OF_PIECES && !flag; i++)
+	{
+		if (_pieces[i] != nullptr && _pieces[i]->getLetter() == letter && _pieces[i]->getNumber() == number)
+		{
+			flag = true;
+			retPiece = _pieces[i];
+		}
+	}
+	return retPiece;
+}
+
+
 
 
 
@@ -595,18 +611,22 @@ bool Board::knightCheck(Piece* king)
 	char enemyKnight = ' ';
 	char allyKnight = ' ';
 
-	if (_board[CURR_PLAYER] == '1')//if black turn
+	//if black turn
+	if (_board[CURR_PLAYER] == '1')
 	{
 		enemyKnight = 'N';
 		allyKnight = 'n';
 	}
-	else//if white turn
+
+	//if white's turn
+	else
 	{
 		enemyKnight = 'n';
 		allyKnight = 'N';
 	}
 
-	if (kingLet + TWO <= 'h') // move 2 to the right
+	// move 2 to the right
+	if (kingLet + TWO <= 'h')
 	{
 		if (kingNum < '8' && (*this)(kingLet + TWO, kingNum + 1) == enemyKnight)//move 1 upwards
 		{

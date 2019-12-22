@@ -36,6 +36,7 @@ class Board
 
 public:
 	Board(char startingPlayer);
+	~Board();
 	Piece* getPiece(char letter, char number);
 	void printBoard();
 	char& operator()(const char letter, const char number);
