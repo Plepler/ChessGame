@@ -169,7 +169,7 @@ void Board::createPieces()
 
 
 	//White
-	newPiece = new Pawn('2', 'a', W_PAWN);
+	newPiece = new Pawn('7', 'a', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
@@ -224,7 +224,6 @@ This function prints the board
 */
 void Board::printBoard()
 {
-
 	int i = 0, k = 0;
 	cout << endl;
 	for (i = SIZE - TWO -1; i >= 0 ; i-= EIGHT)
@@ -238,6 +237,9 @@ void Board::printBoard()
 	cout << endl;
 }
 
+/*
+This function checks
+*/
 int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	int i = 0;
@@ -257,7 +259,7 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		flag = MISS;
 	}
 	//Check if destination is occupied by same color piece
-	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  (isupper((*this)(dstLetter, dstNum) != 0)))
+	else if ((*this)(dstLetter, dstNum)  != EMPTY && (color == '0' ? true : false) ==  isupper((*this)(dstLetter, dstNum)))
 	{
 		flag = OCCUPIED;
 	}
@@ -283,8 +285,6 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	int errorCode = isValidMove(srcNum, srcLetter, dstNum, dstLetter);
 	if (errorCode == VAL)
 	{
-		
-		
 		//Change board
 		if ((*this)(dstLetter, dstNum) == '#')
 		{
@@ -294,21 +294,18 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
-				
 				cout << CODE_4 << endl;
 				//reverse back the move
-				
 				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
 				(*this)(dstLetter, dstNum) = EMPTY;
 				getPiece(dstLetter, dstNum)->setPos(srcLetter, srcNum);//Set the old cordinates
 			}
-			
 			else
 			{
 				cout << CODE_0 << endl;
+				_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 			}
 		}
-
 		else		
 		{
 			//eat the piece and check if king is in check
@@ -316,7 +313,7 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 
 			(*this)(dstLetter, dstNum) = getPiece(srcLetter, srcNum)->getSign();
 			(*this)(srcLetter, srcNum) = EMPTY;
-			
+			getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
 				//reverse back
@@ -330,12 +327,10 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			{
 				getRidOf(temp);
 				cout << CODE_0 << endl;//SUCCESS
+				_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 			}
 			
 		}
-		
-		
-		_board[CURR_PLAYER] = (_board[CURR_PLAYER] == '0' ? '1' : '0');
 	}
 	
 	else
@@ -347,7 +342,8 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			break;
 
 		case MISS:
-			cout << CODE_2 << endl;		
+			cout << CODE_2 << endl;	
+			break;
 		
 		case OCCUPIED:
 			cout << CODE_3 << endl;
@@ -432,7 +428,6 @@ bool Board::rookCheck(Piece * king)
 	{
 		enemyRook = 'r';
 		enemyQueen = 'q';
-
 	}
 
 	//This loops checks The horizontal line
@@ -448,7 +443,6 @@ bool Board::rookCheck(Piece * king)
 		{
 			closePiece2 = (*this)(i, num);
 		}
-
 	}
 	if (closePiece2 == enemyRook || closePiece1 == enemyRook || closePiece1 == enemyQueen || closePiece2 == enemyQueen)
 	{
@@ -456,7 +450,7 @@ bool Board::rookCheck(Piece * king)
 	}
 
 	//This loop checks the vertical line
-	for (i = '1'; i < 'i' && !flag; i++)
+	for (i = '1'; i < '8' && !flag; i++)
 	{
 		//Check the closest from the left
 		if (i < letter && (*this)(letter, i) != '#')
@@ -577,9 +571,9 @@ bool Board::knightCheck(Piece* king)
 		allyKnight = 'N';
 	}
 
-	if (kingLet + TWO <= 'h') // right
+	if (kingLet + TWO <= 'h') // move 2 to the right
 	{
-		if (kingNum < '8' && (*this)(kingLet + TWO, kingNum + 1) == enemyKnight)
+		if (kingNum < '8' && (*this)(kingLet + TWO, kingNum + 1) == enemyKnight)//move 1 upwards
 		{
 			flag = true;
 		}
@@ -601,22 +595,22 @@ bool Board::knightCheck(Piece* king)
 	}
 	if (kingNum + 2 <= '8') // up
 	{
-		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum + TWO))
+		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum + TWO) == enemyKnight)
 		{
 			flag = true;
 		}
-		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum + TWO))
+		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum + TWO) == enemyKnight)
 		{
 			flag = true;
 		}
 	}
 	if (kingNum - 2 >= '1') // down
 	{
-		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum - TWO))
+		if (kingLet < 'h' && (*this)(kingLet + 1, kingNum - TWO) == enemyKnight)
 		{
 			flag = true;
 		}
-		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum - TWO))
+		if (kingLet > 'a' && (*this)(kingLet - 1, kingNum - TWO) == enemyKnight)
 		{
 			flag = true;
 		}
