@@ -38,6 +38,10 @@ public:
 	char getNumber();
 	bool isBlack();
 	void setPos(char let, char num);
+	char getSign();	
+
 	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
-	char getSign();
+	//the function checks if the rook is moving correctly without friendly fire or passing over pieces
+	//In: the board, the src index and the dest index of the piece
+	//Out: based on the piece, true or false based on the move, if its valid
 };
