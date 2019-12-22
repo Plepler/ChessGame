@@ -10,7 +10,7 @@ bool Knight::isValidPieceMove(Board board, char srcNum, char srcLetter, char dst
 {
 	bool flag = true;
 	
-	//check for every illigl move
+	//check for every illigle move
 	if (!(dstLetter == srcLetter + WIDTH && dstNum == srcNum + 1 || dstLetter == srcLetter - WIDTH && dstNum == srcNum + 1 ||
 		dstLetter == srcLetter + WIDTH && dstNum == srcNum - 1 || dstLetter == srcLetter - WIDTH && dstNum == srcNum - 1 ||
 		dstLetter == srcLetter + 1 && dstNum == srcNum + LENGTH || dstLetter == srcLetter - 1 && dstNum == srcNum + LENGTH ||
