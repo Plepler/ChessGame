@@ -238,7 +238,9 @@ void Board::printBoard()
 }
 
 /*
-This function checks
+This function checks if a move is valid
+In: source tile and destination tile indexes
+Out: the code of the result
 */
 int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
@@ -279,6 +281,10 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 	return flag;
 }
 
+/*
+This function moves the piece with the parameters only if the move is valid
+In: source tile index and destination tile index
+*/
 void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	Piece* temp = nullptr;
@@ -332,9 +338,9 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			
 		}
 	}
-	
 	else
 	{
+		//Print an error acording to the returned code
 		switch (errorCode)
 		{
 		case CHECK:
@@ -375,6 +381,11 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		}
 	}
 }
+
+/*
+This function delets a piece from the array of pieces
+In: piece to delete
+*/
 void Board::getRidOf(Piece * p)
 {
 	int i = 0;
@@ -386,7 +397,7 @@ void Board::getRidOf(Piece * p)
 			delete(_pieces[i - 1]);
 			flag = true;
 		}
-		if (flag)
+		if (flag)//after piece was deleted move all the pieces after it forward
 		{
 			_pieces[i - 1] = _pieces[i];
 		}
@@ -394,6 +405,11 @@ void Board::getRidOf(Piece * p)
 	_pieces[i - 1] = nullptr;
 }
 
+/*
+This function call all the function to check if the king is in check
+In: king we want to check
+Out: true if king is in check, false otherwise
+*/
 bool Board::checkIfCheck(Piece* king)
 {
 	bool flag = false;
@@ -404,7 +420,11 @@ bool Board::checkIfCheck(Piece* king)
 	return flag;
 }
 
-
+/*
+This function checks if the rook or queen are putting the king in check
+In: King the function will check
+Out: true if the king is in check, false otherwise
+*/
 bool Board::rookCheck(Piece * king)
 {
 	//Check if rook can kill
@@ -472,6 +492,11 @@ bool Board::rookCheck(Piece * king)
 	return flag;
 }
 
+/*
+This function checks if the bishop or queen are putting the king in check
+In: King that will be checked
+Out: true if the king is in check, false otherwise
+*/
 bool Board::bishopCheck(Piece* king)
 {
 	bool flag = false;
@@ -516,6 +541,11 @@ bool Board::bishopCheck(Piece* king)
 	return flag;
 }
 
+/*
+This function checks if the pawn is putting the king in check
+In: King that will be checked
+Out: true if the king is in check, false otherwise
+*/
 bool Board::pawnCheck(Piece* king)
 {
 	bool flag = false;
@@ -552,6 +582,11 @@ bool Board::pawnCheck(Piece* king)
 	return flag;
 }
 
+/*
+This function checks if the knight is putting the king in check
+In: King that will be checked
+Out: true if the king is in check, false otherwise
+*/
 bool Board::knightCheck(Piece* king)
 {
 	bool flag = false;
