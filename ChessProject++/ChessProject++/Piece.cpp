@@ -12,6 +12,7 @@ Piece::Piece(char number, char letter, char sign)
 	this->_sign = sign;
 }
 
+//Getters
 char Piece::getLetter()
 {
 	return _letter;

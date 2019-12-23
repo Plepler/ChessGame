@@ -494,13 +494,13 @@ bool Board::rookCheck(Piece * king)
 	//This loop checks the vertical line
 	for (i = '1'; i < '8' && !flag; i++)
 	{
-		//Check the closest from the left
-		if (i < letter && (*this)(letter, i) != '#')
+		//Check the closest from below
+		if (i < num && (*this)(letter, i) != '#')
 		{
 			closePiece1 = (*this)(letter, i);
 		}
-		//Check the closest from the right
-		else if (i > letter && (*this)(letter, i) != '#' && (*this)(letter, i) != '#' && closePiece2 == ' ')
+		//Check the closest from above
+		else if (i > num && (*this)(letter, i) != '#' && (*this)(letter, i) != '#' && closePiece2 == ' ')
 		{
 			closePiece2 = (*this)(letter, i);
 		}
