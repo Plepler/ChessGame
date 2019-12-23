@@ -27,7 +27,7 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 				{
 					flag = true;
 				}
-				if ((dstLetter == dstLetter - 1) && board(dstLetter, dstNum) != EMPTY)//illegal move
+				if (dstNum == srcNum + 1 && ((dstLetter == srcLetter - 1) && board(dstLetter, dstNum) != EMPTY))
 				{
 					flag = true;
 				}
@@ -64,7 +64,7 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 				{
 					flag = true;
 				}
-				if (dstNum == srcNum - 1 && (dstLetter == srcLetter - 1 && (board(dstLetter, dstNum)) != EMPTY))
+				if (dstNum == srcNum - 1 && ((dstLetter == srcLetter - 1) && (board(dstLetter, dstNum)) != EMPTY))
 				{
 					flag = true;
 				}

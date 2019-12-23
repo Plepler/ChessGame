@@ -271,7 +271,7 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 		flag = OUT;
 	}
 	//Check if there is a piece in that position
-	else if (srcPiece != nullptr && srcPiece->isBlack() != ( color == '1' ? true : false ) )
+	else if (srcPiece == nullptr || srcPiece->isBlack() != ( color == '1' ? true : false ) )
 	{
 		flag = MISS;
 	}
@@ -518,7 +518,7 @@ Out: true if the king is in check, false otherwise
 bool Board::bishopCheck(Piece* king)
 {
 	bool flag = false;
-	char i = king->getLetter() + 1, k = king->getNumber() + 1;
+	char i = king->getLetter(), k = king->getNumber();
 	//Check diagonal upwards right
 	for (i = i, k = k; i <= 'h' || k <= '8' && !flag; i++, k++)
 	{
