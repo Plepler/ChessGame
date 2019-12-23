@@ -219,7 +219,11 @@ Piece* Board::getPiece(char letter, char number)
 
 
 
-
+/*
+This function overides the operator () so it can be used as index to the array
+In: letter and number of tile
+Out: char in the requested index
+*/
 char& Board::operator()(const char letter, const char number)
 {
 	int index = 0;
@@ -228,7 +232,7 @@ char& Board::operator()(const char letter, const char number)
 		index = (int(number - '0') - 1) * EIGHT;
 		index += int(letter - 'a') ;
 	}
-
+	
 	return _board[LAST_INDEX - index];
 }
 
