@@ -41,13 +41,15 @@ public:
 	void printBoard();
 	char& operator()(const char letter, const char number);
 	int isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter);
-	void move(char srcNum, char srcLetter, char dstNum, char dstLetter);
-	void createPieces();
+	int move(char srcNum, char srcLetter, char dstNum, char dstLetter);
+	
 	Piece* findPiece(char sign);
 
 private:
 	Piece* _pieces[NUM_OF_PIECES];
 	char * _board;
+
+	void createPieces();
 	void getRidOf(Piece * p);
 	bool checkIfCheck(Piece * king);
 	bool rookCheck(Piece* king);//also queen since she is an hybrid of rook and bishop

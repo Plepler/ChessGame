@@ -6,7 +6,7 @@
 
 Knight::Knight(char number, char letter, char sign): Piece(number, letter, sign) {}
 
-bool Knight::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
+bool Knight::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	bool flag = true;
 	

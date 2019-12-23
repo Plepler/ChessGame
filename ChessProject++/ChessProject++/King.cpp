@@ -11,7 +11,7 @@ King::King(char number, char letter, char sign) : Piece(number, letter, sign)
 	_isOnCheck = false;
 }
 
-bool King::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
+bool King::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	int LetterDistace = int(pow(int(dstLetter - DIFF) - int(srcLetter - DIFF), SQURED)); // get the absolote value of the distance between src and dest letters
 	int numDistance = int(pow(int(dstNum) - int(srcNum), SQURED));// get the absolote value of the distance between src and dest numbers

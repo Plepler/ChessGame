@@ -5,13 +5,13 @@
 //c'tor
 Pawn::Pawn(char number, char letter, char sign) : Piece(number, letter, sign) {}
 
-bool Pawn::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
+bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 
 	bool flag = true;
 	
 	//If white
-	if (!isupper(this->_sign))
+	if (isupper(this->_sign))
 	{
 		//if its the white pawns, in thier first line
 		if (srcNum == '2')

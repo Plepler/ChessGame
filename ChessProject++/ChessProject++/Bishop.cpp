@@ -5,7 +5,7 @@
 Bishop::Bishop(char number, char letter, char sign) : Piece(number, letter, sign) {}
 
 
-bool Bishop::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
+bool Bishop::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	char i = ' ', k = ' ';
 	bool flag = true;

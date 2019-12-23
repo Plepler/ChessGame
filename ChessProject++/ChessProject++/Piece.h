@@ -40,7 +40,7 @@ public:
 	void setPos(char let, char num);
 	char getSign();	
 
-	virtual bool isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
+	virtual bool isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter) = 0;
 	//This function check if the piece moved correctly with skipping over other pieces (except knight)
 	//In: the board, the src index and the dest index of the piece
 	//Out: true if the move is valid, false otherwise

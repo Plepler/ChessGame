@@ -8,7 +8,7 @@ Queen::Queen(char number, char letter, char sign) : Piece(number, letter, sign)
 
 }
 
-bool Queen::isValidPieceMove(Board board, char srcNum, char srcLetter, char dstNum, char dstLetter)
+bool Queen::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	char k = ' ';
 	char i = ' ';

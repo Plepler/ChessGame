@@ -54,142 +54,142 @@ void Board::createPieces()
 {
 	//Create Rooks
 	int i = 0;
-	Piece* newPiece = new Rook('1', 'a', B_ROOK);//Bottom left rook
+	Piece* newPiece = new Rook('1', 'a', W_ROOK);//Bottom left rook
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Rook('1', 'h', B_ROOK);//bottom right rook
+	newPiece = new Rook('1', 'h', W_ROOK);//bottom right rook
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Rook('8', 'a', W_ROOK);//top left rook
+	newPiece = new Rook('8', 'a', B_ROOK);//top left rook
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Rook('8', 'h', W_ROOK);//top right rook
+	newPiece = new Rook('8', 'h', B_ROOK);//top right rook
 	_pieces[i] = newPiece;
 	i++;
 
 	//Create Kings
 
-	newPiece = new King('1', 'd', B_KING);
+	newPiece = new King('1', 'd', W_KING);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new King('8', 'd', W_KING);
+	newPiece = new King('8', 'd', B_KING);
 	_pieces[i] = newPiece;
 	i++;
 
 	//Create Queen
-	newPiece = new Queen('1', 'e', B_QUEEN);
+	newPiece = new Queen('1', 'e', W_QUEEN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Queen('8', 'e', W_QUEEN);
+	newPiece = new Queen('8', 'e', B_QUEEN);
 	_pieces[i] = newPiece;
 	i++;
 
 
 	//Create Bishops
 
-	newPiece = new Bishop('1', 'c', B_BISHOP);
+	newPiece = new Bishop('1', 'c', W_BISHOP);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Bishop('1', 'f', B_BISHOP);
+	newPiece = new Bishop('1', 'f', W_BISHOP);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Bishop('8', 'c', W_BISHOP);
+	newPiece = new Bishop('8', 'c', B_BISHOP);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Bishop('8', 'f', W_BISHOP);
+	newPiece = new Bishop('8', 'f', B_BISHOP);
 	_pieces[i] = newPiece;
 	i++;
 
 	//Create Knights
-	newPiece = new Knight('1', 'b', B_KIGHT);
+	newPiece = new Knight('1', 'b', W_KIGHT);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Knight('1', 'g', B_KIGHT);
+	newPiece = new Knight('1', 'g', W_KIGHT);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Knight('8', 'b', W_KIGHT);
+	newPiece = new Knight('8', 'b', B_KIGHT);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Knight('8', 'g', W_KIGHT);
+	newPiece = new Knight('8', 'g', B_KIGHT);
 	_pieces[i] = newPiece;
 	i++;
 
 	//Create Pawns
 	//Black
-	newPiece = new Pawn('2', 'a', B_PAWN);
+	newPiece = new Pawn('2', 'a', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'b', B_PAWN);
+	newPiece = new Pawn('2', 'b', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'c', B_PAWN);
+	newPiece = new Pawn('2', 'c', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'd', B_PAWN);
+	newPiece = new Pawn('2', 'd', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'e', B_PAWN);
+	newPiece = new Pawn('2', 'e', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'f', B_PAWN);
+	newPiece = new Pawn('2', 'f', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'g', B_PAWN);
+	newPiece = new Pawn('2', 'g', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('2', 'h', B_PAWN);
+	newPiece = new Pawn('2', 'h', W_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
 
 	//White
-	newPiece = new Pawn('7', 'a', W_PAWN);
+	newPiece = new Pawn('7', 'a', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'b', W_PAWN);
+	newPiece = new Pawn('7', 'b', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'c', W_PAWN);
+	newPiece = new Pawn('7', 'c', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'd', W_PAWN);
+	newPiece = new Pawn('7', 'd', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'e', W_PAWN);
+	newPiece = new Pawn('7', 'e', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'f', W_PAWN);
+	newPiece = new Pawn('7', 'f', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'g', W_PAWN);
+	newPiece = new Pawn('7', 'g', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 
-	newPiece = new Pawn('7', 'h', W_PAWN);
+	newPiece = new Pawn('7', 'h', B_PAWN);
 	_pieces[i] = newPiece;
 	i++;
 }
@@ -219,18 +219,16 @@ Piece* Board::getPiece(char letter, char number)
 
 
 
-
 char& Board::operator()(const char letter, const char number)
 {
 	int index = 0;
 	if (number > '0' && number < '9' && letter >= 'a' && letter < 'i')
 	{
 		index = (int(number - '0') - 1) * EIGHT;
-		//cout << "Index: " << index << endl;
 		index += int(letter - 'a') ;
-		//cout << "Index: " << index << endl;
 	}
-	return _board[index];
+
+	return _board[63 - index];
 }
 
 
@@ -301,7 +299,7 @@ int Board::isValidMove(char srcNum, char srcLetter, char dstNum, char dstLetter)
 This function moves the piece with the parameters only if the move is valid
 In: source tile index and destination tile index
 */
-void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
+int Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 	Piece* temp = nullptr;
 	int errorCode = isValidMove(srcNum, srcLetter, dstNum, dstLetter);
@@ -316,6 +314,7 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
+				errorCode = SUICIDE;
 				cout << CODE_4 << endl;
 				//reverse back the move
 				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
@@ -338,6 +337,7 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			getPiece(srcLetter, srcNum)->setPos(dstLetter, dstNum);//Set the new cordinates
 			if (checkIfCheck(findPiece((_board[CURR_PLAYER] == '1' ? B_KING : W_KING))))
 			{
+				errorCode = SUICIDE;
 				//reverse back
 				cout << CODE_4 << endl;
 				(*this)(srcLetter, srcNum) = getPiece(dstLetter, dstNum)->getSign();
@@ -396,6 +396,7 @@ void Board::move(char srcNum, char srcLetter, char dstNum, char dstLetter)
 			break;
 		}
 	}
+	return errorCode;
 }
 
 /*
