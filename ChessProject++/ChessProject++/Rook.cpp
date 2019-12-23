@@ -14,18 +14,20 @@ bool Rook::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 {
 	char i = 0;
 	bool flag = true;
+	char temp = ' ';
+
 	if (srcNum != dstNum && srcLetter != dstLetter)//Make sure he moved in a straight line
 	{
 		flag = false;
 	}
-	else if (srcNum != dstNum)//The rook moved
+	else if (srcNum != dstNum)//The rook moved vertically
 	{
 		if (dstNum < srcNum)//Make dst num always bigger
 		{
 			//Switch
-			dstNum = srcNum + dstNum;
-			srcNum = dstLetter - srcNum;
-			dstNum = dstNum - srcNum;
+			temp = dstNum;
+			dstNum = srcNum;
+			srcNum = temp;
 		}
 
 		for (i = srcNum + 1; i < dstNum && flag; i++)
@@ -36,19 +38,19 @@ bool Rook::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 			}
 		}
 	}
-	else
+	else//the rook moved verically
 	{
 		if (dstLetter < srcLetter)//Make dst letter always bigger
 		{
 			//swap
-			dstLetter = srcLetter + dstLetter;
-			srcLetter = dstLetter - srcLetter;
-			dstLetter = dstLetter - srcLetter;
+			temp = dstLetter;
+			dstLetter = srcLetter;
+			srcLetter = temp;
 		}
 
 		for (i = srcLetter + 1; i < dstLetter && flag; i++)
 		{
-			if (board(srcLetter, dstLetter) != EMPTY)
+			if (board(i, srcNum) != EMPTY)
 			{
 				flag = false;
 			}

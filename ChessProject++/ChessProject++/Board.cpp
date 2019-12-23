@@ -9,6 +9,7 @@
 
 using namespace std;
 #define DIFF 48
+#define LAST_INDEX 63
 
 enum ALL_PIECES
 {
@@ -228,7 +229,7 @@ char& Board::operator()(const char letter, const char number)
 		index += int(letter - 'a') ;
 	}
 
-	return _board[63 - index];
+	return _board[LAST_INDEX - index];
 }
 
 
@@ -581,7 +582,7 @@ bool Board::pawnCheck(Piece* king)
 	}
 
 
-	if (isupper(king->getSign()))//if white king
+	if (!isupper(king->getSign()))//if white king
 	{
 		//If White knight is in danger from pawn
 		if ((kingLet > 'a' && kingNum > '1' && (*this)(kingLet - 1, kingNum - 1)) == enemyPawn || kingLet < 'z' && kingNum > '1' && (*this)(kingLet + 1, kingNum - 1) == enemyPawn)

@@ -8,72 +8,89 @@ Pawn::Pawn(char number, char letter, char sign) : Piece(number, letter, sign) {}
 bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstNum, char dstLetter)
 {
 
-	bool flag = true;
+	bool flag = false;
 	
 	//If white
-	if (isupper(this->_sign))
+	if (dstNum != srcNum)//Check if moved forward
 	{
-		//if its the white pawns, in thier first line
-		if (srcNum == '2')
+		if (isupper(this->_sign))
 		{
-			if (!(dstLetter == srcLetter && dstNum == srcNum + 2 || dstNum == srcNum + 1))
+			//if its the white pawns, in their first line
+			if (srcNum == '2')
 			{
-				flag = false;
-			}
-		}
+				//Check every legal move
+				if (dstLetter == srcLetter && (dstNum == srcNum + TWO || dstNum == srcNum + 1))
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum + 1 && ((dstLetter == srcLetter + 1) && board(dstLetter, dstNum) != EMPTY))
+				{
+					flag = true;
+				}
+				if ((dstLetter == dstLetter - 1) && board(dstLetter, dstNum) != EMPTY)//illegal move
+				{
+					flag = true;
+				}
 
+			}
+			else
+			{
+				//Check every legal move
+				if (dstLetter == srcLetter && dstNum == srcNum + 1)
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum + 1 && ((dstLetter == srcLetter + 1) && board(dstLetter, dstNum) != EMPTY))//illegal move
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum + 1 && ((dstLetter == dstLetter - 1) && board(dstLetter, dstNum) != EMPTY))//illegal move
+				{
+					flag = true;
+				}
+			}
+		}
 		else
 		{
-			//check every illigel move
-			if (!(dstNum == srcNum + 1))
+			//if its the black pawns, in thier first line
+			if (srcNum == '7')
 			{
-				flag = false;
+				//Check every legal move
+				if (dstLetter == srcLetter && (dstNum == srcNum - TWO || dstNum == srcNum - 1))
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum - 1 && ((dstLetter == srcLetter + 1) && (board(dstLetter, dstNum)) != EMPTY))
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum - 1 && (dstLetter == srcLetter - 1 && (board(dstLetter, dstNum)) != EMPTY))
+				{
+					flag = true;
+				}
 			}
-			else if ((dstLetter == srcLetter + 1) && board(dstLetter, dstNum) == EMPTY)
+			else//Check every legal move
 			{
-				flag = false;
-			}
-			else if ((dstLetter == dstLetter - 1) && board(dstLetter, dstNum) == EMPTY)
-			{
-				flag = false;
-			}
-			else if (dstLetter != dstLetter)
-			{
-				flag = false;
+				if (srcLetter == dstLetter && dstNum == srcNum - 1)
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum - 1 && ((dstLetter == srcLetter + 1) && (board(dstLetter, dstNum)) != EMPTY))
+				{
+					flag = true;
+				}
+				if (dstNum == srcNum - 1 && ((dstLetter == srcLetter - 1) && (board(dstLetter, dstNum)) != EMPTY))
+				{
+					flag = true;
+				}
 			}
 		}
 	}
-	else
+	else//didnt mov forward
 	{
-		//if its the black pawns, in thier first line
-		if (srcNum == '7')
-		{
-			if (!(dstLetter == srcLetter && dstNum == srcNum - 2 || dstNum == srcNum - 1))
-			{
-				flag = false;
-			}
-		}
-		else
-		{
-			//check every illigel move
-			if (!(dstNum == dstNum - 1))
-			{
-				flag = false;
-			}
-			else if ((dstLetter == srcLetter + 1) && (board(dstLetter, dstNum)) == EMPTY)
-			{
-				flag = false;
-			}
-			else if (dstLetter == dstLetter - 1 && (board(dstLetter, dstNum)) == EMPTY)
-			{
-				flag = false;
-			}
-			else if (dstLetter != dstLetter)
-			{
-				flag = false;
-			}
-		}
+		flag = false;
 	}
+	
 	
 	return flag;
 }

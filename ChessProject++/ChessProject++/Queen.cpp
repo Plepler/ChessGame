@@ -13,19 +13,20 @@ bool Queen::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dst
 	char k = ' ';
 	char i = ' ';
 	bool flag = true;
+	char temp = ' ';
 	if (dstNum < srcNum)//Make dst num always bigger
 	{
 		//Switch
-		dstNum = srcNum + dstNum;
-		srcNum = dstLetter - srcNum;
-		dstNum = dstNum - srcNum;
+		temp = dstNum;
+		dstNum = srcNum;
+		srcNum = temp;
 	}
 	if (dstLetter < srcLetter)//Make dst letter always bigger
 	{
 		//swap
-		dstLetter = srcLetter + dstLetter;
-		srcLetter = dstLetter - srcLetter;
-		dstLetter = dstLetter - srcLetter;
+		temp = dstLetter;
+		dstLetter = srcLetter;
+		srcLetter = temp;
 	}
 
 	if (dstLetter > srcLetter && dstNum == srcNum)//Moves horizontally
