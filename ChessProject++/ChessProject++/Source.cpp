@@ -63,10 +63,10 @@ void main()
 		// YOUR CODE
 		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
 
-		/******* JUST FOR EREZ DEBUGGING ******/
+
 		msgToGraphics[0] = (char)(r + '0');
 		msgToGraphics[1] = 0;
-		/******* JUST FOR EREZ DEBUGGING ******/
+
 
 
 		// return result to graphics		
