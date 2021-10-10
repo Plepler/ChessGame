@@ -10,9 +10,10 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 
 	bool flag = false;
 	
-	//If white
-	if (dstNum != srcNum)//Check if moved forward
+	// Check if moved at all
+	if (dstNum != srcNum)
 	{
+		//If white
 		if (isupper(this->_sign))
 		{
 			//if its the white pawns, in their first line
@@ -33,10 +34,10 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 				}
 
 			}
-			else
+			else // Not from their line
 			{
 				//Check every legal move
-				if (dstLetter == srcLetter && dstNum == srcNum + 1)
+				if (dstLetter == srcLetter && dstNum == srcNum + 1 && board(dstLetter, dstNum) == EMPTY )
 				{
 					flag = true;
 				}
@@ -71,7 +72,7 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 			}
 			else//Check every legal move
 			{
-				if (srcLetter == dstLetter && dstNum == srcNum - 1)
+				if (srcLetter == dstLetter && dstNum == srcNum - 1 && board(dstLetter, dstNum) == EMPTY)
 				{
 					flag = true;
 				}
@@ -86,7 +87,7 @@ bool Pawn::isValidPieceMove(Board& board, char srcNum, char srcLetter, char dstN
 			}
 		}
 	}
-	else//didnt mov forward
+	else//didnt move forward
 	{
 		flag = false;
 	}
